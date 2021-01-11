@@ -10,12 +10,14 @@ const router = Router()
 router.post(
     "/registration",
     [
-        check("username", "Name некорректно").isString,
+        check("username", "Name некорректно").isString(),
         check("email", "Email некорректно").isEmail(),
         check("password", "Password должен состоять из 8 символов").isLength({ min: 8 })
     ],
     async (request, response) => {
         try {
+            console.log("Body:", request.body)
+
             const errors = validationResult(request)
 
             if (!errors.isEmpty()) {
@@ -54,7 +56,7 @@ router.post(
 router.post(
     "/login",
     [
-        check("username", "Name некорректно").isString,
+        check("username", "Name некорректно").isString(),
         check("email", "Email некорректно").normalizeEmail().isEmail(),
         check("password", "Неверный Password").exists()
     ],
